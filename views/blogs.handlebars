@@ -1,0 +1,13 @@
+<div style="padding-top: 10px;">
+	<ul style="list-style: none;">
+		{{#each blogs}}
+			<div class="card" style="width: 18rem; margin:10px">
+				<div class="card-body">
+					<h5 class="card-title">{{this.title}}</h5>
+					<p class="card-text">{{this.snippet}}</p>
+					<a href="/blogs/1" class="card-link">Read more</a>
+				</div>
+			</div>
+		{{/each}}
+	</ul>
+</div>
