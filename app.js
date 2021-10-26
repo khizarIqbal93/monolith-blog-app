@@ -17,20 +17,20 @@ fs.readdir("./articles", "utf-8").then((namesArr) => {
 				title: cleanName.charAt(0).toUpperCase() + cleanName.slice(1),
 				snippet,
 				nameWithoutExt,
+				author: "Linus Torvalds",
 			});
 		});
 	});
 });
 
 app.get("/blogs", (req, res) => {
-	console.log(blogs);
 	res.render("blogs", { blogs });
 });
 
 app.get("/blogs/:id", (req, res) => {
 	const { id } = req.params;
 	const found = blogs.find((element) => element.id == id);
-	console.log(found);
+
 	const article = {};
 	fs.readFile(`./articles/${found.nameWithoutExt}.txt`, "utf-8").then(
 		(file) => {
@@ -40,10 +40,15 @@ app.get("/blogs/:id", (req, res) => {
 				blog: {
 					title: article.title,
 					content: article.content,
+					author: found.author,
 				},
 			});
 		}
 	);
+});
+
+app.get("/post", (req, res) => {
+	res.render("post");
 });
 
 app.get("/", (req, res) => {
