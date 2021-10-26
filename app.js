@@ -7,35 +7,43 @@ app.set("view engine", "handlebars");
 const port = 9090;
 const blogs = [];
 fs.readdir("./articles", "utf-8").then((namesArr) => {
-	namesArr.forEach((x) => {
+	namesArr.forEach((x, index) => {
 		const nameWithoutExt = x.substring(0, x.length - 4);
 		const cleanName = nameWithoutExt.replace(/_/gm, " ");
 		fs.readFile(`./articles/${x}`, "utf-8").then((preview) => {
 			const snippet = preview.substr(0, 94) + "...";
 			blogs.push({
+				id: index + 1,
 				title: cleanName.charAt(0).toUpperCase() + cleanName.slice(1),
 				snippet,
+				nameWithoutExt,
 			});
 		});
 	});
 });
 
 app.get("/blogs", (req, res) => {
+	console.log(blogs);
 	res.render("blogs", { blogs });
 });
 
-app.get("/blogs/1", (req, res) => {
+app.get("/blogs/:id", (req, res) => {
+	const { id } = req.params;
+	const found = blogs.find((element) => element.id == id);
+	console.log(found);
 	const article = {};
-	fs.readFile("./articles/milestones.txt", "utf-8").then((file) => {
-		article.title = "Milestones";
-		article.content = file;
-		res.render("blog", {
-			blog: {
-				title: article.title,
-				content: article.content,
-			},
-		});
-	});
+	fs.readFile(`./articles/${found.nameWithoutExt}.txt`, "utf-8").then(
+		(file) => {
+			article.title = found.title;
+			article.content = file;
+			res.render("blog", {
+				blog: {
+					title: article.title,
+					content: article.content,
+				},
+			});
+		}
+	);
 });
 
 app.get("/", (req, res) => {
