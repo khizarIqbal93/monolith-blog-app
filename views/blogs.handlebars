@@ -1,14 +1,18 @@
 <div style="padding: 10px;">
 	<style>
 		.card:hover { transform: translateY(-20px); transition: 0.4s ease-out; }
-		.card:hover h5 { text-decoration: underline;} .card { transition: 0.4s
-		ease-out; }
+		.card:hover h5 { text-decoration: underline; color:rgb(220, 110, 61)} .card
+		{ transition: 0.4s ease-out; }
 
 	</style>
 	<h1 style="text-align: center;">See what all the pandas are up to...</h1>
-	<ul style="list-style: none;  margin: auto; width: 60%; padding: 10px;">
+	<ul
+		class="card_list"
+		style="list-style: none;  margin: auto; width: 60%; padding: 10px;"
+	>
 		{{#each blogs}}
-			<div
+			<li
+				id="{{this.id}}"
 				class="card"
 				style="width: 18rem; margin:10px; padding: 10px; display:inline-flex; "
 			>
@@ -18,7 +22,7 @@
 					<a href="/blogs/{{this.id}}" class="card-link">Read more</a>
 					<p class="card-text">🐼 <span>:</span> {{this.author}} </p>
 				</div>
-			</div>
+			</li>
 		{{/each}}
 	</ul>
 </div>

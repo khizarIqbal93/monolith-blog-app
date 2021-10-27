@@ -17,7 +17,7 @@ fs.readdir("./articles", "utf-8").then((namesArr) => {
 				title: cleanName.charAt(0).toUpperCase() + cleanName.slice(1),
 				snippet,
 				nameWithoutExt,
-				author: "Linus Torvalds",
+				author: "Johnny Appleseed",
 			});
 		});
 	});
@@ -52,6 +52,7 @@ app.get("/post", (req, res) => {
 });
 
 app.get("/", (req, res) => {
+	console.log(blogs);
 	res.render("home");
 });
 
