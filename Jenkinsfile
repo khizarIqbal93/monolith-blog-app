@@ -41,7 +41,7 @@ pipeline {
                 }
                 stage("Run the server") {
                     steps {
-                        timeout(4){
+                        timeout(2){
                             script{
                                 try{
                                     echo "running now"
