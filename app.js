@@ -1,6 +1,7 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
 const fsSync = require("fs");
+// comment
 const {
 	getBlogs,
 	getBlogContent,
@@ -51,6 +52,10 @@ app.get("/blogs/:id", (req, res) => {
 
 app.get("/post", (req, res) => {
 	res.render("post");
+});
+
+app.post("/postData", (req, res) => {
+	console.log(req.body);
 });
 
 app.get("/", (req, res) => {
