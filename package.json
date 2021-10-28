@@ -6,7 +6,8 @@
 	"scripts": {
 		"test": "jest",
 		"lint": "eslint",
-		"cypress:open": "cypress open"
+		"cypress:open": "cypress open",
+		"cy:run": "cypress run"
 	},
 	"author": "",
 	"license": "ISC",
