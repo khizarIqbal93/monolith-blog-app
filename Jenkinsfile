@@ -27,7 +27,6 @@ pipeline {
             }       
         }
              
-        }
         
         stage('testing') {
             parallel {
@@ -51,6 +50,8 @@ pipeline {
             }
         
         }
+
+    }
     post {
         cleanup {
             cleanWs()
