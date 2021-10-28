@@ -1,5 +1,6 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
+const fsSync = require("fs");
 const {
 	getBlogs,
 	getBlogContent,
@@ -13,21 +14,18 @@ const { PORT = 9090 } = process.env;
 const path = "./articles/";
 
 app.get("/blogs", (req, res) => {
-	const fileNames = getBlogs(path);
+	const fileNames = fsSync.readdirSync("./articles/", "utf-8");
 	const myJson = [];
-	fileNames.then((arr) => {
-		arr.forEach((blog, index) => {
-			const content = getBlogContent(blog, path);
-			content.then((result) => {
-				myJson.push({
-					title: blogTitle(blog),
-					snippet: preview(result),
-					id: index + 1,
-					author: "Johnny Appleseed",
-				});
-			});
+	fileNames.forEach((blog, index) => {
+		const content = fsSync.readFileSync(`${path}${blog}`, "utf-8");
+		myJson.push({
+			title: blogTitle(blog),
+			snippet: preview(content),
+			id: index + 1,
+			author: "Johnny Appleseed",
 		});
 	});
+
 	res.render("blogs", { myJson });
 });
 
