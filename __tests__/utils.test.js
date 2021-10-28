@@ -13,7 +13,7 @@ describe("getBlogs", () => {
 	});
 	it("should an array of file names", () => {
 		return getBlogs(path).then((data) => {
-			expect(data).toHaveLength(3);
+			expect(data.length).toBeGreaterThan(3);
 			expect(data[0]).toBe("IDC.txt");
 		});
 	});

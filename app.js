@@ -1,6 +1,7 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
 const fsSync = require("fs");
+const cors = require("cors");
 
 const {
 	getBlogs,
@@ -9,6 +10,8 @@ const {
 	preview,
 } = require("./utils/library");
 const app = express();
+app.use(express.json());
+app.use(cors());
 app.engine("handlebars", exphbs());
 app.set("view engine", "handlebars");
 const { PORT = 9090 } = process.env;
@@ -55,7 +58,8 @@ app.get("/post", (req, res) => {
 });
 
 app.post("/postData", (req, res) => {
-	console.log(req.body);
+	const { title, blog } = req.body;
+	fsSync.writeFileSync(`${path}${title}.txt`, blog);
 });
 
 app.get("/", (req, res) => {

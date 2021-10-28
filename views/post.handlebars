@@ -1,27 +1,40 @@
 <style>
 	.mb-3 { margin: auto; padding: 10px 30px;}
 </style>
-<div class="mb-3">
-	<h1>Post your own blog!</h1>
-	<label for="exampleFormControlInput1" class="form-label">Blog title</label>
-	<input
-		type="email"
-		class="form-control"
-		id="exampleFormControlInput1"
-		placeholder="enter your awesome title here 🎋"
-	/>
-</div>
-<div class="mb-3">
-	<label for="exampleFormControlTextarea1" class="form-label">Whats on your
-		mind?</label>
-	<textarea
-		class="form-control"
-		id="exampleFormControlTextarea1"
-		rows="3"
-	></textarea>
-	<button
-		type="button"
-		class="btn btn-success"
-		style="margin-top: 10px;"
-	>Success</button>
-</div>
+
+<form id="myForm">
+	<div class="mb-3">
+		<h1>Post your own blog!</h1>
+		<label for="exampleFormControlInput1" class="form-label">Blog title</label>
+		<input
+			type="text"
+			name="title"
+			class="form-control"
+			id="exampleFormControlInput1"
+			placeholder="enter your awesome title here 🎋"
+		/>
+	</div>
+	<div class="mb-3">
+		<label for="exampleFormControlTextarea1" class="form-label">Whats on your
+			mind?</label>
+		<textarea
+			class="form-control"
+			id="exampleFormControlTextarea1"
+			rows="3"
+		></textarea>
+		<button
+			type="Submit"
+			class="btn btn-success"
+			style="margin-top: 10px;"
+		>Submit</button>
+	</div>
+</form>
+<script>
+	const myForm = document.getElementById("myForm");
+	myForm.addEventListener("submit", (event) => { event.preventDefault(); const
+	title = document.getElementById("exampleFormControlInput1").value; const blog
+	= document.getElementById("exampleFormControlTextarea1").value; const data = {
+	title: title, blog: blog }; fetch("http://localhost:9090/postData", { method:
+	"POST", headers: { "Content-Type": "application/json", }, body:
+	JSON.stringify(data), }); });
+</script>
