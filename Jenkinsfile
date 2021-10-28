@@ -34,7 +34,7 @@ pipeline {
                     steps {
                         echo "UI test with cypress"
                         sh """
-                        sleep 10
+                        sleep 20
                         npm run cy:run
                         """
                     }
