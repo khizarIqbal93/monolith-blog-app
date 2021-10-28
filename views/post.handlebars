@@ -34,7 +34,8 @@
 	myForm.addEventListener("submit", (event) => { event.preventDefault(); const
 	title = document.getElementById("exampleFormControlInput1").value; const blog
 	= document.getElementById("exampleFormControlTextarea1").value; const data = {
-	title: title, blog: blog }; fetch("http://localhost:9090/postData", { method:
-	"POST", headers: { "Content-Type": "application/json", }, body:
-	JSON.stringify(data), }); });
+	title: title, blog: blog };
+	fetch("https://bamboo-blogs.herokuapp.com/postData", { method: "POST",
+	headers: { "Content-Type": "application/json", }, body: JSON.stringify(data),
+	}); });
 </script>
