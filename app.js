@@ -59,7 +59,6 @@ app.get("/", (req, res) => {
 	res.render("home");
 });
 
-app.listen(PORT, (err) => {
-	if(err) throw err:
-	console.log(`Listening on ${PORT}...`)
+app.listen(PORT, () => {
+	console.log(`Listening on ${PORT}...`);
 });
