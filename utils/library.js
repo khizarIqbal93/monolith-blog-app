@@ -1,4 +1,4 @@
-const fs = require("fs/promises");
+const fs = require("fs").promises;
 
 async function getBlogs(path) {
 	const arr = await fs.readdir(`${path}`, "utf-8");
