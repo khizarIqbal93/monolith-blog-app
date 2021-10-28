@@ -1,50 +1,53 @@
 const express = require("express");
-const fs = require("fs/promises");
 const exphbs = require("express-handlebars");
+const {
+	getBlogs,
+	getBlogContent,
+	blogTitle,
+	preview,
+} = require("./utils/library");
 const app = express();
 app.engine("handlebars", exphbs());
 app.set("view engine", "handlebars");
 const port = 9090;
-const blogs = [];
-fs.readdir("./articles", "utf-8").then((namesArr) => {
-	namesArr.forEach((x, index) => {
-		const nameWithoutExt = x.substring(0, x.length - 4);
-		const cleanName = nameWithoutExt.replace(/_/gm, " ");
-		fs.readFile(`./articles/${x}`, "utf-8").then((preview) => {
-			const snippet = preview.substr(0, 94) + "...";
-			blogs.push({
-				id: index + 1,
-				title: cleanName.charAt(0).toUpperCase() + cleanName.slice(1),
-				snippet,
-				nameWithoutExt,
-				author: "Johnny Appleseed",
+const path = "./articles/";
+
+app.get("/blogs", (req, res) => {
+	const fileNames = getBlogs(path);
+	const myJson = [];
+	fileNames.then((arr) => {
+		arr.forEach((blog, index) => {
+			const content = getBlogContent(blog, path);
+			content.then((result) => {
+				myJson.push({
+					title: blogTitle(blog),
+					snippet: preview(result),
+					id: index + 1,
+				});
 			});
 		});
 	});
-});
-
-app.get("/blogs", (req, res) => {
-	res.render("blogs", { blogs });
+	res.render("blogs", { myJson });
 });
 
 app.get("/blogs/:id", (req, res) => {
 	const { id } = req.params;
-	const found = blogs.find((element) => element.id == id);
+	const files = getBlogs(path);
 
-	const article = {};
-	fs.readFile(`./articles/${found.nameWithoutExt}.txt`, "utf-8").then(
-		(file) => {
-			article.title = found.title;
-			article.content = file;
-			res.render("blog", {
-				blog: {
-					title: article.title,
-					content: article.content,
-					author: found.author,
-				},
-			});
-		}
-	);
+	files.then((arr) => {
+		const found = arr.find((element) => arr.indexOf(element) + 1 == id);
+		getBlogContent(found, path).then((result) => {
+			const title = blogTitle(found);
+			const content = result;
+			const author = "Johnny Appleseed";
+			const blog = {
+				title,
+				content,
+				author,
+			};
+			res.render("blog", { blog });
+		});
+	});
 });
 
 app.get("/post", (req, res) => {
@@ -52,7 +55,6 @@ app.get("/post", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-	console.log(blogs);
 	res.render("home");
 });
 

@@ -1,28 +1,24 @@
 const fs = require("fs/promises");
-const path = "../articles";
 
 async function getBlogs(path) {
-	let arr = await fs.readdir(`${path}`, "utf-8");
+	const arr = await fs.readdir(`${path}`, "utf-8");
 	return arr;
 }
 
-function getBlogContent(filename, path) {
-	return fs.readFile(`${path}/${filename}`, "utf-8");
+async function getBlogContent(filename, path) {
+	const file = await fs.readFile(`${path}${filename}`, "utf-8");
+	return file;
 }
 
-async function blogsJson(path) {
-	const namesArr = await getBlogs(path);
-	const finalArray = namesArr.map((x) => {
-		return fs.readFile(`../articles/${x}`, "utf-8").then((res) => {
-			return res;
-		});
-
-		// const snippet = content.substr(0, 94) + "...";
-
-		// return snippet;
-	});
-	return finalArray;
+function preview(string) {
+	const snippet = string.substr(0, 94) + "...";
+	return snippet;
 }
 
-blogsJson(path).then((res) => console.log(res));
-module.exports = { getBlogs, getBlogContent };
+function blogTitle(filename) {
+	const nameWithoutExt = filename.substring(0, filename.length - 4);
+	const cleanName = nameWithoutExt.replace(/_/gm, " ");
+	return cleanName;
+}
+
+module.exports = { getBlogs, getBlogContent, preview, blogTitle };
