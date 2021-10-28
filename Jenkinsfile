@@ -48,7 +48,7 @@ pipeline {
                                     sh """
                                     node app.js
                                     """
-                                } catch (throwable e) {
+                                } catch (Throwable e) {
                                     currentBuild.result = "SUCCESS"
                                 }
                             }
