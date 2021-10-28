@@ -9,7 +9,7 @@ const {
 const app = express();
 app.engine("handlebars", exphbs());
 app.set("view engine", "handlebars");
-const port = 9090;
+const { PORT = 9090 } = process.env;
 const path = "./articles/";
 
 app.get("/blogs", (req, res) => {
@@ -59,6 +59,7 @@ app.get("/", (req, res) => {
 	res.render("home");
 });
 
-app.listen(port, () => {
-	console.log(`server running on port ${port}`);
+app.listen(PORT, (err) => {
+	if(err) throw err:
+	console.log(`Listening on ${PORT}...`)
 });
