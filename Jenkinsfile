@@ -18,7 +18,7 @@ pipeline {
             }
         } 
       
-        stage("Test") {
+        stage("Unit Test") {
             steps{
                 echo "Testing now"
 
@@ -30,9 +30,12 @@ pipeline {
         }
         
         
-        stage("Deploy"){
+        stage("User interface tests"){
             steps{
                 echo "Deploying now"
+                sh """
+                npm run cypress:open
+                """
 
             }
         }
