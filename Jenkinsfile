@@ -13,34 +13,44 @@ pipeline {
                 echo "Building now"
                 sh """
                 npm install
-                node app.js
                 """
                 
             }
         } 
         
+        stage("Unit Test") {
+            steps{
+                echo "Testing now"
+                sh """
+                npm test
+                """
+            }       
+        }
+             
+        }
+        
         stage('testing') {
             parallel {
-                stage("Unit Test") {
-                    steps{
-                        echo "Testing now"
-                        sh """
-                        npm test
-                        """
-                    }       
-                }
                 stage('UI test') {
                     steps {
                         echo "UI test with cypress"
                         sh """
+                        sleep 10
                         npm run cypress:open
                         """
                     }
                 }
+                stage("Run the server") {
+                    steps {
+                        echo "running now"
+                        sh """
+                         node app.js
+                        """
+                    }  
+                }
             }
-        }
         
-    }
+        }
     post {
         cleanup {
             cleanWs()
