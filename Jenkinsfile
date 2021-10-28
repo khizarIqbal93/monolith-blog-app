@@ -13,6 +13,7 @@ pipeline {
                 echo "Building now"
                 sh """
                 npm install
+                node app.js
                 """
                 
             }
