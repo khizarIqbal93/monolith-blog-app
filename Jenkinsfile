@@ -13,7 +13,6 @@ pipeline {
                 echo "Building now"
                 sh """
                 npm install
-                node app.js
                 """
                 
             }
@@ -33,8 +32,9 @@ pipeline {
         
         stage("User interface tests"){
             steps{
-                echo "Deploying now"
+                echo "UI testing now"
                 sh """
+                node app.js
                 npm run cypress:open
                 """
 
