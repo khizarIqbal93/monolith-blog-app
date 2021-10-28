@@ -1,7 +1,7 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
 const fsSync = require("fs");
-// comment
+
 const {
 	getBlogs,
 	getBlogContent,
