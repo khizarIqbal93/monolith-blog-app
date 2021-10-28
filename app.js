@@ -23,6 +23,7 @@ app.get("/blogs", (req, res) => {
 					title: blogTitle(blog),
 					snippet: preview(result),
 					id: index + 1,
+					author: "Johnny Appleseed",
 				});
 			});
 		});
