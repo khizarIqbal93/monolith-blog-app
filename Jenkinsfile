@@ -41,10 +41,18 @@ pipeline {
                 }
                 stage("Run the server") {
                     steps {
-                        echo "running now"
-                        sh """
-                         node app.js
-                        """
+                        timeout(4){
+                            script{
+                                try{
+                                    echo "running now"
+                                    sh """
+                                    node app.js
+                                    """
+                                } catch (throwable e) {
+                                    currentBuild.result = "SUCCESS"
+                                }
+                            }
+                        }
                     }  
                 }
             }
