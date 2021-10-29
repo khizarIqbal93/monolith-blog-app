@@ -62,6 +62,9 @@ pipeline {
             steps{
                 echo "Deploying"
                 sh """
+                git remote -v
+                git add .
+                git commit -m "jenkins deploying to heroku"
                 git push heroku main
                 """
             }       
