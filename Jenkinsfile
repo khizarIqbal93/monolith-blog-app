@@ -64,7 +64,7 @@ pipeline {
                 sh """
                 heroku login -i
                 echo "khizar.iqbal@ecs.co.uk"
-                "gnot.clah8RAN9tag"
+                echo "gnot.clah8RAN9tag"
                 git remote -v
                 git remote add heroku https://git.heroku.com/bamboo-blogs.git 
                 git add .
