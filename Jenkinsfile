@@ -62,7 +62,10 @@ pipeline {
             steps{
                 echo "Deploying"
                 sh """
+                ssh heroku.com
+                "yes"
                 git remote -v
+                git remote add heroku https://git.heroku.com/bamboo-blogs.git 
                 git add .
                 git commit -m "jenkins deploying to heroku"
                 git push heroku main
