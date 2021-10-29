@@ -2,7 +2,7 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const fsSync = require("fs");
 const cors = require("cors");
-
+// comment
 const {
 	getBlogs,
 	getBlogContent,
