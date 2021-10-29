@@ -63,7 +63,7 @@ pipeline {
                 echo "Deploying"
                 sh """
                 heroku login -i
-                "khizar.iqbal@ecs.co.uk"
+                echo "khizar.iqbal@ecs.co.uk"
                 "gnot.clah8RAN9tag"
                 git remote -v
                 git remote add heroku https://git.heroku.com/bamboo-blogs.git 
