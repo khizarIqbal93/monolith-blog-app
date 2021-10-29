@@ -62,7 +62,6 @@ pipeline {
             steps{
                 echo "Deploying"
                 sh """
-                npm install heroku
                 heroku login -i
                 khizar.iqbal@ecs.co.uk
                 gnot.clah8RAN9tag
