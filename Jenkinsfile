@@ -62,8 +62,10 @@ pipeline {
             steps{
                 echo "Deploying"
                 sh """
-                ssh heroku.com
-                "yes"
+                npm install -g heroku
+                heroku login -i
+                khizar.iqbal@ecs.co.uk
+                gnot.clah8RAN9tag
                 git remote -v
                 git remote add heroku https://git.heroku.com/bamboo-blogs.git 
                 git add .
