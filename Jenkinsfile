@@ -28,9 +28,20 @@ pipeline {
         }
              
         
-        stage('testing') {
+        stage('UI test') {
             parallel {
-                stage('UI test') {
+                
+                stage("Run the app") {
+                    steps {
+                        script{
+                            echo "running now"
+                            sh """
+                            node app.js
+                            """
+                         }  
+                     }
+                
+                stage('Cypress test') {
                     steps {
                         echo "UI test with cypress"
                         sh """
@@ -39,22 +50,15 @@ pipeline {
                         """
                     }
                 }
-                stage("Run the app") {
+                stage('get pid of app') {
                     steps {
-                        timeout(2){
-                            script{
-                                try{
-                                    echo "running now"
-                                    sh """
-                                    node app.js
-                                    """
-                                } catch (Throwable e) {
-                                    currentBuild.result = "SUCCESS"
-                                }
-                            }
-                        }
-                    }  
+                        echo "PID <<<<<<<<"
+                        sh """
+                        pidof app.js
+                        """
+                    }
                 }
+               
             }
         
         }
