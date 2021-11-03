@@ -54,9 +54,7 @@ pipeline {
                     steps {
                         echo "PID <<<<<<<<"
                         sh """
-                        sleep 2
-                        MYPID=$(pidof npm)
-                        kill -9 \$MYPID
+                        echo "BRUHHHH"
                         """
                     }
                 }
