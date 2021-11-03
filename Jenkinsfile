@@ -40,7 +40,7 @@ pipeline {
                             """
                          }  
                      }
-                
+                }
                 stage('Cypress test') {
                     steps {
                         echo "UI test with cypress"
