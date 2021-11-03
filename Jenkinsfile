@@ -56,7 +56,7 @@ pipeline {
                         sh """
                         sleep 2
                         MYPID=$(pidof npm)
-                        kill -9 $MYPID
+                        kill -9 \$MYPID
                         """
                     }
                 }
