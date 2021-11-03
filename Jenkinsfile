@@ -45,16 +45,18 @@ pipeline {
                     steps {
                         echo "UI test with cypress"
                         sh """
-                        sleep 5
+                        sleep 1
                         npm run cy:run
                         """
                     }
                 }
-                stage('get pid of app') {
+                stage('Kill app') {
                     steps {
                         echo "PID <<<<<<<<"
                         sh """
-                        pidof app.js
+                        sleep 2
+                        MYPID=$(pidof npm)
+                        kill -9 $MYPID
                         """
                     }
                 }
