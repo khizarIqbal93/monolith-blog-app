@@ -34,12 +34,12 @@ pipeline {
                     steps {
                         echo "UI test with cypress"
                         sh """
-                        sleep 20
+                        sleep 5
                         npm run cy:run
                         """
                     }
                 }
-                stage("Run the server") {
+                stage("Run the app") {
                     steps {
                         timeout(2){
                             script{
@@ -57,21 +57,6 @@ pipeline {
                 }
             }
         
-        }
-        stage("Deploy") {
-            steps{
-                echo "Deploying"
-                sh """
-                heroku login -i
-                echo "khizar.iqbal@ecs.co.uk"
-                echo "gnot.clah8RAN9tag"
-                git remote -v
-                git remote add heroku https://git.heroku.com/bamboo-blogs.git 
-                git add .
-                git commit -m "jenkins deploying to heroku"
-                git push heroku main
-                """
-            }       
         }
 
     }

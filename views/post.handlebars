@@ -1,7 +1,6 @@
 <style>
 	.mb-3 { margin: auto; padding: 10px 30px;}
 </style>
-
 <form id="myForm">
 	<div class="mb-3">
 		<h1>Post your own blog!</h1>
@@ -28,14 +27,14 @@
 			style="margin-top: 10px;"
 		>Submit</button>
 	</div>
+	<script>
+		const myForm = document.getElementById("myForm");
+		myForm.addEventListener("submit", (event) => { event.preventDefault(); const
+		title = document.getElementById("exampleFormControlInput1").value; const
+		blog = document.getElementById("exampleFormControlTextarea1").value; const
+		data = { title: title, blog: blog };
+		fetch("https://bamboo-blogs.herokuapp.com/postData", { method: "POST",
+		headers: { "Content-Type": "application/json", }, body:
+		JSON.stringify(data), }); });
+	</script>
 </form>
-<script>
-	const myForm = document.getElementById("myForm");
-	myForm.addEventListener("submit", (event) => { event.preventDefault(); const
-	title = document.getElementById("exampleFormControlInput1").value; const blog
-	= document.getElementById("exampleFormControlTextarea1").value; const data = {
-	title: title, blog: blog };
-	fetch("https://bamboo-blogs.herokuapp.com/postData", { method: "POST",
-	headers: { "Content-Type": "application/json", }, body: JSON.stringify(data),
-	}); });
-</script>

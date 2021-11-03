@@ -21,18 +21,4 @@ function blogTitle(filename) {
 	return cleanName;
 }
 
-// const myForm = document.getElementById("myForm");
-// myForm.addEventListener("submit", (event) => {
-// 	event.preventDefault();
-// 	const title = document.getElementById("exampleFormControlInput1").value;
-// 	const blog = document.getElementById("exampleFormControlTextarea1").value;
-// 	const data = { title: title, blog: blog };
-// 	fetch("https://example.com/profile", {
-// 		method: "POST",
-// 		headers: {
-// 			"Content-Type": "application/json",
-// 		},
-// 		body: JSON.stringify(data),
-// 	});
-// });
 module.exports = { getBlogs, getBlogContent, preview, blogTitle };
