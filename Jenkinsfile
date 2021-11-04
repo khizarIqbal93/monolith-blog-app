@@ -45,7 +45,8 @@ pipeline {
                     steps {
                         echo "UI test with cypress"
                         sh """
-                        sleep 1
+                        npx browserslist@latest --update-db
+                        sleep 2
                         npm run cy:run
                         """
                     }
