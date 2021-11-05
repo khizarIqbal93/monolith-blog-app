@@ -53,7 +53,7 @@ pipeline {
             steps {
                 echo "Killing app"
                 sh """
-                kill -9 $!
+                kill -9 \$!
                 """
             }
         }
