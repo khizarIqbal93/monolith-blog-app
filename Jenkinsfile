@@ -26,43 +26,41 @@ pipeline {
                 """
             }       
         }
-             
-        
-        stage('UI test') {
-            parallel {
+    
                 
-                stage("Run the app") {
-                    steps {
-                        script{
-                            echo "running now"
-                            sh """
-                            node app.js
-                            """
-                         }  
-                     }
+        stage("Run the app") {
+            steps {
+                script{
+                    echo "running now"
+                    sh """
+                    node app.js &
+                    """
+                    }  
                 }
-                stage('Cypress test') {
-                    steps {
-                        echo "UI test with cypress"
-                        sh """
-                        npx browserslist@latest --update-db
-                        sleep 2
-                        npm run cy:run
-                        """
-                    }
-                }
-                stage('Kill app') {
-                    steps {
-                        echo "PID <<<<<<<<"
-                        sh """
-                        echo "BRUHHHH"
-                        """
-                    }
-                }
-               
-            }
-        
         }
+
+        stage('Cypress test') {
+            steps {
+                echo "UI test with cypress"
+                sh """
+                sleep 1
+                npm run cy:run
+                """
+            }
+        }
+        
+        stage('Kill app') {
+            steps {
+                echo "Killing app"
+                sh """
+                kill -9 $!
+                """
+            }
+        }
+               
+
+        
+
 
     }
     post {
