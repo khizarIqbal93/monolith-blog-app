@@ -4,37 +4,40 @@
 <form id="myForm">
 	<div class="mb-3">
 		<h1>Post your own blog!</h1>
-		<label for="exampleFormControlInput1" class="form-label">Blog title</label>
+		<label for="blog-title" class="form-label">Blog title</label>
 		<input
 			type="text"
 			name="title"
 			class="form-control"
-			id="exampleFormControlInput1"
+			id="blog-title"
 			placeholder="enter your awesome title here 🎋"
 		/>
 	</div>
 	<div class="mb-3">
-		<label for="exampleFormControlTextarea1" class="form-label">Whats on your
-			mind?</label>
-		<textarea
-			class="form-control"
-			id="exampleFormControlTextarea1"
-			rows="3"
-		></textarea>
+		<select class="form-select" multiple aria-label="Default select example">
+			<option selected>pick a category</option>
+			<option value="1">One</option>
+			<option value="2">Two</option>
+			<option value="3">Three</option>
+		</select>
+	</div>
+	<div class="mb-3">
+		<label for="blog-content" class="form-label">Whats on your mind?</label>
+		<textarea class="form-control" id="blog-content" rows="3"></textarea>
 		<button
 			type="Submit"
 			class="btn btn-success"
 			style="margin-top: 10px;"
 		>Submit</button>
 	</div>
+
 	<script>
 		const myForm = document.getElementById("myForm");
 		myForm.addEventListener("submit", (event) => { event.preventDefault(); const
 		title = document.getElementById("exampleFormControlInput1").value; const
 		blog = document.getElementById("exampleFormControlTextarea1").value; const
-		data = { title: title, blog: blog };
-		fetch("https://bamboo-blogs.herokuapp.com/postData", { method: "POST",
-		headers: { "Content-Type": "application/json", }, body:
+		data = { title: title, blog: blog }; fetch("http://localhost:9090/postData",
+		{ method: "POST", headers: { "Content-Type": "application/json", }, body:
 		JSON.stringify(data), }); });
 	</script>
 </form>

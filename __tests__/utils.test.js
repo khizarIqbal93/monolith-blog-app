@@ -40,7 +40,7 @@ describe("preview", () => {
 	});
 	it("it should have a length of 97", () => {
 		return getBlogContent("IDC.txt", "./articles/").then((data) => {
-			expect(snippet).toHaveLength(97);
+			expect(snippet).toHaveLength(125);
 		});
 	});
 });

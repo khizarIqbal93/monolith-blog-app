@@ -2,54 +2,32 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const fsSync = require("fs");
 const cors = require("cors");
-// comment
-const {
-	getBlogs,
-	getBlogContent,
-	blogTitle,
-	preview,
-} = require("./utils/library");
+const { getBlogById, getAllBlogs } = require("./dynamodb");
+const { preview } = require("./utils/library");
+
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.engine("handlebars", exphbs());
 app.set("view engine", "handlebars");
+// eslint-disable-next-line no-undef
 const { PORT = 9090 } = process.env;
 const path = "./articles/";
 
 app.get("/blogs", (req, res) => {
-	const fileNames = fsSync.readdirSync("./articles/", "utf-8");
-	const myJson = [];
-	fileNames.forEach((blog, index) => {
-		const content = fsSync.readFileSync(`${path}${blog}`, "utf-8");
-		myJson.push({
-			title: blogTitle(blog),
-			snippet: preview(content),
-			id: index + 1,
-			author: "Johnny Appleseed",
+	getAllBlogs().then((blogs) => {
+		const allBlogs = blogs.map((x) => {
+			const snippet = preview(x.content);
+			return { ...x, snippet };
 		});
+		res.render("blogs", { allBlogs });
 	});
-
-	res.render("blogs", { myJson });
 });
 
 app.get("/blogs/:id", (req, res) => {
 	const { id } = req.params;
-	const files = getBlogs(path);
-
-	files.then((arr) => {
-		const found = arr.find((element) => arr.indexOf(element) + 1 == id);
-		getBlogContent(found, path).then((result) => {
-			const title = blogTitle(found);
-			const content = result;
-			const author = "Johnny Appleseed";
-			const blog = {
-				title,
-				content,
-				author,
-			};
-			res.render("blog", { blog });
-		});
+	getBlogById(id).then((blog) => {
+		res.render("blog", { blog });
 	});
 });
 
