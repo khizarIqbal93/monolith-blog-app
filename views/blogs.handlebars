@@ -8,7 +8,7 @@
 	<h1 style="text-align: center;">See what all the pandas are up to...</h1>
 	<ul
 		class="card_list"
-		style="list-style: none;  margin: auto; width: 80%; padding: 10px;"
+		style="list-style: none;  margin: auto; width: 90%; padding: 10px;"
 	>
 		{{#each allBlogs}}
 			<li
@@ -16,13 +16,14 @@
 				class="card"
 				style="width: 25rem; margin:10px; padding: 10px; display:inline-flex; border-radius: 2%"
 			>
-				<div class="card-body" style="height: 250px;">
-					<h5 class="card-title">{{this.title}}</h5>
-					<p class="card-text">{{this.snippet}} </p>
-					<a href="/blogs/{{this.blog_id}}" class="card-link">Read more</a>
+				<div class="card-body" style="height: 300px;">
+					<a href="/blogs/{{this.blog_id}}" class="card-link"><h5
+							class="card-title"
+						>{{this.title}}</h5></a>
 					<p class="card-text">🐼 <span>:</span> {{this.author}} </p>
+					<p class="card-text">{{this.snippet}} </p>
 					<p class="card-text">category <span>:</span> {{this.category}} </p>
-					<p class="card-text"> {{this.date}} </p>
+					<p class="card-text"> {{this.datePosted}} </p>
 				</div>
 			</li>
 		{{/each}}

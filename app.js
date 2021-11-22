@@ -1,9 +1,8 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
-const fsSync = require("fs");
+
 const cors = require("cors");
-const { getBlogById, getAllBlogs } = require("./dynamodb");
-const { preview } = require("./utils/library");
+const { getBlogById, getAllBlogs, postBlog } = require("./dynamodb");
 
 const app = express();
 app.use(express.json());
@@ -15,11 +14,7 @@ const { PORT = 9090 } = process.env;
 const path = "./articles/";
 
 app.get("/blogs", (req, res) => {
-	getAllBlogs().then((blogs) => {
-		const allBlogs = blogs.map((x) => {
-			const snippet = preview(x.content);
-			return { ...x, snippet };
-		});
+	getAllBlogs().then((allBlogs) => {
 		res.render("blogs", { allBlogs });
 	});
 });
@@ -36,8 +31,10 @@ app.get("/post", (req, res) => {
 });
 
 app.post("/postData", (req, res) => {
-	const { title, blog } = req.body;
-	fsSync.writeFileSync(`${path}${title}.txt`, blog);
+	const { content, category, author, title, date } = req.body;
+	postBlog(title, author, category, date, content).then((result) => {
+		res.status(201).send("OK");
+	});
 });
 
 app.get("/", (req, res) => {

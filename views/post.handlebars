@@ -1,5 +1,6 @@
 <style>
-	.mb-3 { margin: auto; padding: 10px 30px;}
+	.mb-3 { margin: auto; padding: 10px 30px;} .btn {background-color: rgb(220,
+	110, 61);} .btn-primary:hover {background-color: rgb(220, 110, 61);}
 </style>
 <form id="myForm">
 	<div class="mb-3">
@@ -14,19 +15,21 @@
 		/>
 	</div>
 	<div class="mb-3">
-		<select class="form-select" multiple aria-label="Default select example">
-			<option selected>pick a category</option>
-			<option value="1">One</option>
-			<option value="2">Two</option>
-			<option value="3">Three</option>
-		</select>
-	</div>
-	<div class="mb-3">
 		<label for="blog-content" class="form-label">Whats on your mind?</label>
 		<textarea class="form-control" id="blog-content" rows="3"></textarea>
+		<label for="blog-category" class="form-label">Enter a category</label>
+		<textarea class="form-control" id="blog-category" rows="1"></textarea>
+		<label for="blog-author" class="form-label">Your name</label>
+		<textarea
+			class="form-control"
+			id="blog-author"
+			rows="1"
+			cols="2"
+		></textarea>
 		<button
+			id="Submit"
 			type="Submit"
-			class="btn btn-success"
+			class="btn btn-primary"
 			style="margin-top: 10px;"
 		>Submit</button>
 	</div>
@@ -34,10 +37,16 @@
 	<script>
 		const myForm = document.getElementById("myForm");
 		myForm.addEventListener("submit", (event) => { event.preventDefault(); const
-		title = document.getElementById("exampleFormControlInput1").value; const
-		blog = document.getElementById("exampleFormControlTextarea1").value; const
-		data = { title: title, blog: blog }; fetch("http://localhost:9090/postData",
-		{ method: "POST", headers: { "Content-Type": "application/json", }, body:
-		JSON.stringify(data), }); });
+		title = document.getElementById("blog-title").value; const blog =
+		document.getElementById("blog-content").value; const category =
+		document.getElementById("blog-category").value; const author =
+		document.getElementById("blog-author").value; const data = { title: title,
+		content: blog, date: new Date(), author: author, category: [category], };
+		fetch("http://localhost:9090/postData", { method: "POST", headers: {
+		"Content-Type": "application/json" }, body: JSON.stringify(data),
+		}).then((res) => { if (res.status === 201) {
+		document.getElementById("Submit").innerHTML = "Posted!";
+		document.getElementById("Submit").disabled = true;
+		document.getElementById("Submit").class = "btn btn-success"; } }); });
 	</script>
 </form>
