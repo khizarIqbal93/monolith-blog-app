@@ -6,12 +6,14 @@ const { v4: uuidv4 } = require("uuid");
 
 const awsConfig = {
 	region: "eu-west-1",
+	accessKeyId = process.env.AWS_ACCESS_KEY_ID,
+	secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY
 };
 
-if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
-	awsConfig.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-	awsConfig.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
-}
+// if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
+// 	awsConfig.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+// 	awsConfig.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+// }
 
 AWS.config.update(awsConfig);
 
