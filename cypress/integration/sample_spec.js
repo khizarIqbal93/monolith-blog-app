@@ -14,8 +14,8 @@ describe("Home page", () => {
 		});
 		it("Home on navbar should work correctly", () => {
 			cy.visit("http://localhost:9090/blogs");
-			// cy.contains("Home").click();
-			// cy.url().should("include", "/");
+			cy.contains("Home").click();
+			cy.url().should("include", "/");
 		});
 	});
 });
