@@ -58,16 +58,16 @@ pipeline {
             }
         }
 
-        // stage("Build app image") {
-        //     steps {
-        //         script {
-        //             node { 
-        //                 docker.build('blog_app')
-        //             }
-        //         }
+        stage("Build app image") {
+            steps {
+                script {
+                    node { 
+                        docker.build('blog_app')
+                    }
+                }
 
-        //     }
-        // }
+            }
+        }
 
         // stage('Push to ECR') {
         //     steps {
