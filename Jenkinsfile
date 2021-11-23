@@ -59,8 +59,11 @@ pipeline {
         }
 
         stage("Build app image") {
-            steps { 
+            steps {
+            node { 
                 docker.build('blog_app')
+            }
+
             }
         }
 
