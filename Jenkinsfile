@@ -61,9 +61,13 @@ pipeline {
         stage("Build app image") {
             steps {
                 script {
-                    node { 
-                        docker.build('blog_app')
-                    }
+                    // node { 
+                    //     docker.build('blog_app')
+                    // }
+                    sh """
+                    docker image build -t blog_app:1 .
+                    docker images 
+                    """
                 }
 
             }
