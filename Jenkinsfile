@@ -60,9 +60,11 @@ pipeline {
 
         stage("Build app image") {
             steps {
-            node { 
-                docker.build('blog_app')
-            }
+                script {
+                    node { 
+                        docker.build('blog_app')
+                    }
+                }
 
             }
         }
