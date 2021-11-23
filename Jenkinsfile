@@ -5,6 +5,7 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        AWS_ECR_ID = credentials('ecr_admin_id')
     }
 
     options {
@@ -57,12 +58,25 @@ pipeline {
             }
         }
 
-        stage('Build app image') {
-            steps {
-                echo "Building app image"
-                
+        stage("Build app image") {
+            steps { 
+                docker.build('blog_app')
             }
         }
+
+        // stage('Push to ECR') {
+        //     steps {
+        //         script {
+        //             docker.withRegistry(
+        //                 'https://603825719481.dkr.ecr.eu-west-1.amazonaws.com',
+        //                 'ecr:eu-west-1:${AWS_ECR_ID}') {
+        //                 def blogImage = docker.build('blog_app')
+        //                 blogImage.push('blogImage:${BUILD_NUMBER}')
+        //                 }
+        //         }
+  
+        //     }
+        // }
                
 
     }
