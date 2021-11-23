@@ -57,12 +57,10 @@ pipeline {
             }
         }
 
-        stage('Kill app') {
+        stage('Build app image') {
             steps {
-                echo "Killing app"
-                // sh """
-                // kill -9 \$!
-                // """
+                echo "Building app image"
+                
             }
         }
                
