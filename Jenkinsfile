@@ -60,15 +60,12 @@ pipeline {
         stage('Kill app') {
             steps {
                 echo "Killing app"
-                sh """
-                kill -9 \$!
-                """
+                // sh """
+                // kill -9 \$!
+                // """
             }
         }
                
-
-        
-
 
     }
     post {
