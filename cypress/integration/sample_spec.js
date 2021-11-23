@@ -23,11 +23,14 @@ describe("Blogs page", () => {
 	it("check if blog cards are displayed", () => {
 		cy.visit("http://localhost:9090/blogs");
 		cy.get(".card_list > li").should("have.class", "card");
-		cy.get("#4 h5:first").contains("teaching code");
-		cy.get(".card-body > a").should("have.class", "card-link");
+		cy.get("#317afd13-ecee-44d9-9558-cf08b5f87c9d").contains("Teaching code");
 	});
 	it("check if blog cards read more links are correct", () => {
 		cy.visit("http://localhost:9090/blogs");
-		cy.get("#1 a:first").should("have.attr", "href", "/blogs/1");
+		cy.get("#317afd13-ecee-44d9-9558-cf08b5f87c9d a:first").should(
+			"have.attr",
+			"href",
+			"/blogs/317afd13-ecee-44d9-9558-cf08b5f87c9d"
+		);
 	});
 });
