@@ -66,7 +66,7 @@ pipeline {
                     // }
 
                     sh """
-                    docker build -t blog_app1 . -f Dockerfile.Dockerfile
+                    docker build -t blog_app1 .
                     docker images 
                     """
                 }
