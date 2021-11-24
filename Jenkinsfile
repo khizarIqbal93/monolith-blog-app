@@ -78,16 +78,15 @@ pipeline {
         stage('Push to ECR') {
             steps {
                 script {
-                    sh """
-                    aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin $registry
-                    echo "authenticated :)"
-                    docker tag blog_app:$BUILD_NUMBER $registry/blog_app:$BUILD_NUMBER
-                    docker images
-                    docker push $registry/blog_app:$BUILD_NUMBER
-                    """
-                    
-                    // docker.withRegistry("https://" + registry, "ecr:eu-west-1:" + AWS_ECR_ID) {
-                    //     dockerImage.push()
+                    // sh """
+                    // aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin $registry
+                    // echo "authenticated :)"
+                    // docker tag blog_app:$BUILD_NUMBER $registry/blog_app:$BUILD_NUMBER
+                    // docker images
+                    // docker push $registry/blog_app:$BUILD_NUMBER
+                    // """
+                    docker.withRegistry("https://" + registry, "ecr:eu-west-1:" + AWS_ECR_ID) {
+                        dockerImage.push()
                     }
 
                 }
