@@ -6,7 +6,7 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_ACCOUNT_ID = credentials('AWS_ACCOUNT_ID')
-        AWS_ECR_ID = credentials('ecr_admin')
+        AWS_ECR_ID = credentials('ecr_admin_id')
         registry = 'https://603825719481.dkr.ecr.eu-west-1.amazonaws.com'
     }
 
