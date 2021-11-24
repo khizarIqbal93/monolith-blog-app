@@ -59,11 +59,13 @@ pipeline {
         }
 
         stage("Build app image") {
-            agent { dockerfile true }
+            // agent { dockerfile true }
                 steps {
                     script {
                         sh """
-                        echo "building app"
+                        echo "building app image"
+                        docker image build -t blog_app:1 .
+                        docker images
                         """
                     }
 
