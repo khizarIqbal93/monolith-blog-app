@@ -6,7 +6,6 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_ACCOUNT_ID = credentials('AWS_ACCOUNT_ID')
-        // AWS_ECR_ID = credentials('ecr_admin')
         registry = 'https://603825719481.dkr.ecr.eu-west-1.amazonaws.com'
     }
 
@@ -63,11 +62,6 @@ pipeline {
                 steps {
                     script {
                         dockerImage = docker.build "blog_app" + ":$BUILD_NUMBER"
-                        // sh """
-                        // echo "building app image"
-                        // docker image build -t blog_app:$BUILD_NUMBER .
-                        // docker images
-                        // """
                     }
 
                 }
@@ -78,13 +72,6 @@ pipeline {
         stage('Push to ECR') {
             steps {
                 script {
-                    // sh """
-                    // aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin $registry
-                    // echo "authenticated :)"
-                    // docker tag blog_app:$BUILD_NUMBER $registry/blog_app:$BUILD_NUMBER
-                    // docker images
-                    // docker push $registry/blog_app:$BUILD_NUMBER
-                    // """
                     docker.withRegistry(registry, "ecr:eu-west-1:" + "ecr_admin") {
                         dockerImage.push()
                     }
@@ -92,7 +79,6 @@ pipeline {
                 }
             }
         }
-        // aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 603825719481.dkr.ecr.eu-west-1.amazonaws.com
                
     }
     post {
