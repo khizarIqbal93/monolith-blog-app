@@ -80,7 +80,7 @@ pipeline {
         steps {
             script {
                 
-                dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                dockerImage = docker.build "blog_app" + ":$BUILD_NUMBER"
                 docker.withRegistry("https://" + registry, "ecr:eu-west-1:" + AWS_ECR_ID) {
                     dockerImage.push()
                 // docker.withRegistry(
