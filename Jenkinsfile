@@ -85,7 +85,7 @@ pipeline {
                     // docker images
                     // docker push $registry/blog_app:$BUILD_NUMBER
                     // """
-                    docker.withRegistry("https://" + registry, "ecr:eu-west-1:" + "ecr_admin") {
+                    docker.withRegistry(registry, "ecr:eu-west-1:" + "ecr_admin") {
                         dockerImage.push()
                     }
 
