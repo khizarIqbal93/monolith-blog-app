@@ -57,12 +57,8 @@ pipeline {
                 """
             }
         }
-    }
-    
 
     agent { dockerfile true }
-    stages {
-
         stage("Build app image") {
             steps {
                 script {
@@ -73,7 +69,11 @@ pipeline {
 
             }
         }
+        
     }
+    
+
+
         
 
 
