@@ -82,7 +82,7 @@ pipeline {
                 
                 dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 docker.withRegistry("https://" + registry, "ecr:eu-central-1:" + AWS_ECR_ID) {
-                dockerImage.push()
+                    dockerImage.push()
                 // docker.withRegistry(
                 //     'ecr:eu-west-1:${AWS_ECR_ID}') {
                 //     def blogImage = docker.build('blog_app')
@@ -92,7 +92,7 @@ pipeline {
 
         }
     }
-
+    }
         // aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 603825719481.dkr.ecr.eu-west-1.amazonaws.com
                
 
