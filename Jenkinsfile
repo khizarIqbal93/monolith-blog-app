@@ -57,22 +57,25 @@ pipeline {
                 """
             }
         }
+    }
+    
+
+    agent { dockerfile true }
+    stages {
 
         stage("Build app image") {
             steps {
                 script {
-                    //node { 
-                    //     docker.build('blog_app')
-                    // }
-
                     sh """
-                    docker build -t blog_app1 .
-                    docker images 
+                    echo "building app"
                     """
                 }
 
             }
         }
+    }
+        
+
 
         // stage('Push to ECR') {
         //     steps {
@@ -89,7 +92,6 @@ pipeline {
         // }
                
 
-    }
     post {
         cleanup {
             cleanWs()
