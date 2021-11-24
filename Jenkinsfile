@@ -88,10 +88,10 @@ pipeline {
                 //     def blogImage = docker.build('blog_app')
                 //     blogImage.push('blog:${BUILD_NUMBER}')
                 //     }
-            }
+                }
 
+            }
         }
-    }
     }
         // aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 603825719481.dkr.ecr.eu-west-1.amazonaws.com
                
@@ -101,4 +101,5 @@ pipeline {
             cleanWs()
         }
     }
+}
 }
