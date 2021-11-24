@@ -64,7 +64,7 @@ pipeline {
                     script {
                         sh """
                         echo "building app image"
-                        docker image build -t blog_app:1 .
+                        docker image build -t blog_app:$BUILD_NUMBER .
                         docker images
                         """
                     }
