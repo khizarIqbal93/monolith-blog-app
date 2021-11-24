@@ -58,16 +58,16 @@ pipeline {
             }
         }
 
-    agent { dockerfile true }
         stage("Build app image") {
-            steps {
-                script {
-                    sh """
-                    echo "building app"
-                    """
-                }
+            agent { dockerfile true }
+                steps {
+                    script {
+                        sh """
+                        echo "building app"
+                        """
+                    }
 
-            }
+                }
         }
         
     }
