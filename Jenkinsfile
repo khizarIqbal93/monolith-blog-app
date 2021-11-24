@@ -60,43 +60,42 @@ pipeline {
             }
         }
 
-    //     stage("Build app image") {
-    //             steps {
-    //                 script {
-    //                     sh """
-    //                     echo "building app image"
-    //                     docker image build -t blog_app:$BUILD_NUMBER .
-    //                     docker images
-    //                     """
-    //                 }
+        stage("Build app image") {
+                steps {
+                    script {
+                        dockerImage = docker.build "blog_app" + ":$BUILD_NUMBER"
+                        // sh """
+                        // echo "building app image"
+                        // docker image build -t blog_app:$BUILD_NUMBER .
+                        // docker images
+                        // """
+                    }
 
-    //             }
-    //     }
-        
-    // }
-
-
-    stage('Push to ECR') {
-        steps {
-            script {
-                
-                dockerImage = docker.build "blog_app" + ":$BUILD_NUMBER"
-                docker.withRegistry("https://" + registry, "ecr:eu-west-1:" + AWS_ECR_ID) {
-                    dockerImage.push()
-                // docker.withRegistry(
-                //     'ecr:eu-west-1:${AWS_ECR_ID}') {
-                //     def blogImage = docker.build('blog_app')
-                //     blogImage.push('blog:${BUILD_NUMBER}')
-                //     }
                 }
+        }
+        
 
+
+        stage('Push to ECR') {
+            steps {
+                script {
+                    sh """
+                    aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.eu-west-1.amazonaws.com
+                    docker tag blog_app:$BUILD_NUMBER $AWS_ACCOUNT_ID.dkr.ecr.eu-west-1.amazonaws.com/blog_app:$BUILD_NUMBER
+                    docker push $AWS_ACCOUNT_ID.dkr.ecr.eu-west-1.amazonaws.com/blog_app:$BUILD_NUMBER
+                    """
+                    
+                    // docker.withRegistry("https://" + registry, "ecr:eu-west-1:" + AWS_ECR_ID) {
+                    //     dockerImage.push()
+                    }
+
+                }
             }
         }
     }
         // aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 603825719481.dkr.ecr.eu-west-1.amazonaws.com
                
 
-}
     post {
         cleanup {
             cleanWs()
