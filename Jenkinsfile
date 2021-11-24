@@ -62,12 +62,12 @@ pipeline {
         stage("Build app image") {
                 steps {
                     script {
-                        // dockerImage = docker.build "blog_app" + ":$BUILD_NUMBER"
-                        sh """
-                        echo "building app image"
-                        docker image build -t blog_app:$BUILD_NUMBER .
-                        docker images
-                        """
+                        dockerImage = docker.build "blog_app" + ":$BUILD_NUMBER"
+                        // sh """
+                        // echo "building app image"
+                        // docker image build -t blog_app:$BUILD_NUMBER .
+                        // docker images
+                        // """
                     }
 
                 }
@@ -79,11 +79,11 @@ pipeline {
             steps {
                 script {
                     sh """
-                    aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.eu-west-1.amazonaws.com
+                    aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin $registry
                     echo "authenticated :)"
-                    docker tag blog_app:$BUILD_NUMBER $AWS_ACCOUNT_ID.dkr.ecr.eu-west-1.amazonaws.com/blog_app:$BUILD_NUMBER
+                    docker tag blog_app:$BUILD_NUMBER $registry/blog_app:$BUILD_NUMBER
                     docker images
-                    docker push $AWS_ACCOUNT_ID.dkr.ecr.eu-west-1.amazonaws.com/blog_app:$BUILD_NUMBER
+                    docker push $registry/blog_app:$BUILD_NUMBER
                     """
                     
                     // docker.withRegistry("https://" + registry, "ecr:eu-west-1:" + AWS_ECR_ID) {
