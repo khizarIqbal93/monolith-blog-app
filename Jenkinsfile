@@ -54,7 +54,6 @@ pipeline {
             steps {
                 echo "UI test with cypress"
                 sh """
-                sleep 1
                 npm run cy:run
                 """
             }
@@ -82,6 +81,7 @@ pipeline {
                     sh """
                     aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.eu-west-1.amazonaws.com
                     docker tag blog_app:$BUILD_NUMBER $AWS_ACCOUNT_ID.dkr.ecr.eu-west-1.amazonaws.com/blog_app:$BUILD_NUMBER
+                    docker images
                     docker push $AWS_ACCOUNT_ID.dkr.ecr.eu-west-1.amazonaws.com/blog_app:$BUILD_NUMBER
                     """
                     
