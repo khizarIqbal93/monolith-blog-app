@@ -94,7 +94,7 @@ pipeline {
         }
         // aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 603825719481.dkr.ecr.eu-west-1.amazonaws.com
                
-
+    }
     post {
         cleanup {
             cleanWs()
@@ -102,3 +102,4 @@ pipeline {
     }
 
 }
+
