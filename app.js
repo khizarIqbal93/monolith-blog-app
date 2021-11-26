@@ -3,7 +3,7 @@ const exphbs = require("express-handlebars");
 
 const cors = require("cors");
 const { getBlogById, getAllBlogs, postBlog } = require("./dynamodb");
-
+// comment
 const app = express();
 app.use(express.json());
 app.use(cors());
