@@ -42,9 +42,9 @@
 		document.getElementById("blog-category").value; const author =
 		document.getElementById("blog-author").value; const data = { title: title,
 		content: blog, date: new Date(), author: author, category: [category], };
-		fetch("http://localhost:9090/postData", { method: "POST", headers: {
-		"Content-Type": "application/json" }, body: JSON.stringify(data),
-		}).then((res) => { if (res.status === 201) {
+		fetch("http://ak-lb-tf-1472356211.eu-west-1.elb.amazonaws.com/postData", {
+		method: "POST", headers: { "Content-Type": "application/json" }, body:
+		JSON.stringify(data), }).then((res) => { if (res.status === 201) {
 		document.getElementById("Submit").innerHTML = "Posted!";
 		document.getElementById("Submit").disabled = true;
 		document.getElementById("Submit").class = "btn btn-success"; } }); });
