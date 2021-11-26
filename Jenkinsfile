@@ -61,7 +61,7 @@ pipeline {
         stage("Build app image") {
                 steps {
                     script {
-                        dockerImage = docker.build "blog_app" + ":latest"
+                        dockerImage = docker.build "blog_app" + ":$JOB_BASE_NAME" + "_$BUILD_NUMBER"
                     }
 
                 }
