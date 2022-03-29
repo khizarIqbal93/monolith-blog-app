@@ -11,17 +11,17 @@ app.engine("handlebars", exphbs());
 app.set("view engine", "handlebars");
 // eslint-disable-next-line no-undef
 const { PORT = 9090 } = process.env;
-const path = "./articles/";
+console.log(PORT, "<<<<<<<PORT");
 
 app.get("/blogs", (req, res) => {
-	getAllBlogs().then((allBlogs) => {
+	getAllBlogs().then(allBlogs => {
 		res.render("blogs", { allBlogs });
 	});
 });
 
 app.get("/blogs/:id", (req, res) => {
 	const { id } = req.params;
-	getBlogById(id).then((blog) => {
+	getBlogById(id).then(blog => {
 		res.render("blog", { blog });
 	});
 });
@@ -32,7 +32,7 @@ app.get("/post", (req, res) => {
 
 app.post("/postData", (req, res) => {
 	const { content, category, author, title, date } = req.body;
-	postBlog(title, author, category, date, content).then((result) => {
+	postBlog(title, author, category, date, content).then(result => {
 		res.status(201).send("OK");
 	});
 });
