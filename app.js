@@ -11,7 +11,6 @@ app.engine("handlebars", exphbs());
 app.set("view engine", "handlebars");
 // eslint-disable-next-line no-undef
 const { PORT = 9090 } = process.env;
-console.log(PORT, "<<<<<<<PORT");
 
 app.get("/blogs", (req, res) => {
 	getAllBlogs().then(allBlogs => {
