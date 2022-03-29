@@ -12,7 +12,6 @@ if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
 	awsConfig.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
 	awsConfig.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 }
-console.log(awsConfig);
 
 AWS.config.update(awsConfig);
 
