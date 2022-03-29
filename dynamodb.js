@@ -12,13 +12,14 @@ if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
 	awsConfig.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
 	awsConfig.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 }
+console.log(awsConfig);
 
 AWS.config.update(awsConfig);
 
 const db = new AWS.DynamoDB.DocumentClient();
 const table = "Blogs";
 
-const getBlogById = async (blog_id) => {
+const getBlogById = async blog_id => {
 	const params = {
 		TableName: table,
 		Key: {
@@ -41,7 +42,7 @@ const getAllBlogs = async () => {
 
 	const response = await db.scan(params).promise();
 
-	const allBlogs = response.Items.map((x) => {
+	const allBlogs = response.Items.map(x => {
 		x.snippet = preview(x.content);
 		x.datePosted = moment(x.date).fromNow();
 		return x;
